@@ -31,6 +31,7 @@ def create_item(new_item: ItemCreate):
     items_db.append(item)
     return item
     
+             
 @app.put("/items/{item_id}", response_model=Item)
 def update_item(item_id: int, updated_item: ItemCreate):
     for idx, item in enumerate(items_db):
@@ -39,9 +40,9 @@ def update_item(item_id: int, updated_item: ItemCreate):
             return items_db[idx]
     raise HTTPException(status_code=404, detail="Item no encontrado")
     
-    @app.delete("/items/{item_id}") 
-    def delete_item(item_id: int):
-        for idx, item in enumerate(items_db):
+@app.delete("/items/{item_id}") 
+def delete_item(item_id: int):
+    for idx, item in enumerate(items_db):
             if item.id == item_id: del items_db[idx]
             return {"message": "Item eliminado"}
-        raise HTTPException(status_code=404, detail="Item no encontrado") 
+    raise HTTPException(status_code=404, detail="Item no encontrado")
